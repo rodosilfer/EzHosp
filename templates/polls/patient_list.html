@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de  Paciente</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Pacientes</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list %}
+                {% for patient in object_list %}
+                    <tr>
+                        <td> {{ patient.firstName }} {{ patient.lastName }} </td>
+                        <td> {{ patient.email }} </td>
+                        <td> {{ patient.phone }} </td>
+                        <td>
+                            <a href="{% url "patient_edit" patient.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "patient_delete" patient.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Pacientes</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <form action="{% url "patient_new" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Adicionar</button>
+        </form>
+    </div>
+</body>
+</html>

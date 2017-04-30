@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EzHosp</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>EzHosp</h1>
+        <form action="{% url "patient_list" %}">
+            <button type="submit" class="form-btn">Pacientes</button>
+        </form>
+    </div>
+</body>
+</html>
