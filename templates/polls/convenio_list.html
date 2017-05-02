@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Lista de  Paciente</title>
+	<title>Lista de Convenio</title>
     {% load static %}
 	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Pacientes</h1>
+        <h1>Convenios</h1>
         <table class="table-list">
             <thead class="table-header">
                 <tr>
-                    <th>Nome</th>
+                    <th>Nome Fantasia</th>
                     <th>Email</th>
-                    <th>Telefone</th>
+		    <th>Telefone</th>
                     <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
             {% if object_list %}
-                {% for patient in object_list %}
+                {% for convenio in object_list %}
                     <tr>
-                        <td> {{ patient.firstName }} {{ patient.lastName }} </td>
-                        <td> {{ patient.email }} </td>
-                        <td> {{ patient.phone }} </td>
+                        <td> {{ convenio.fantasyName }} </td>
+                        <td> {{ convenio.email }} </td>
+                        <td> {{ convenio.phone }} </td>
                         <td>
-                            <a href="{% url "patient_edit" patient.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
-                            <a href="{% url "patient_delete" patient.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                            <a href="{% url "convenio_edit" convenio.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "convenio_delete" convenio.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
                         </td>
                     </tr>
                 {% endfor %}
             {% else %}
                 <tr>
-                    <td colspan="4" style="text-align: center">Sem Pacientes</td>
+                    <td colspan="4" style="text-align: center">Sem Convenios</td>
                 </tr>
             {% endif %}
             </tbody>
         </table>
 
-        <form action="{% url "patient_new" %}" style="margin-top: 20px">
+        <form action="{% url "convenio_new" %}" style="margin-top: 20px">
             <button class="form-btn center" type="submit">Adicionar</button>
         </form>
     </div>
