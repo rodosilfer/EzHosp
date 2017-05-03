@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Exames</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Exames</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list %}
+                {% for exame in object_list %}
+                    <tr>
+                        <td> {{ exame.nome }} </td>
+                        <td>
+                            <a href="{% url "exame_edit" exame.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "exame_delete" exame.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Exames</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <form action="{% url "exame_new" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Adicionar</button>
+        </form>
+    </div>
+</body>
+</html>

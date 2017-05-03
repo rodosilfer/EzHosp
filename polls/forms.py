@@ -4,17 +4,17 @@ from .models import *
 class PatientForm(ModelForm):
     class Meta:
         model = Patient
-        fields = ['firstName', 'cpf', 'lastName', 'email', 'phone', 'cellPhone', 'city', 'address', 'street', 'login',
+        fields = ['firstName', 'lastName', 'email', 'phone', 'cellPhone', 'city', 'estado', 'bairro', 'street', 'login',
                   'password']
 
         widgets = {'firstName': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
-		   'cpf': TextInput(attrs={'placeholder': 'CPF', 'class': 'form', 'pattern': '^(\d{11}$', 'title':'99999999999'}),
                    'lastName': TextInput(attrs={'placeholder': 'Sobrenome', 'class': 'form'}),
                    'email': EmailInput(attrs={'placeholder': 'Email', 'class': 'form'}),
                    'phone': TextInput(attrs={'placeholder': 'Celular', 'class': 'form', 'pattern': '^(\+\d{2})?\d{12}$', 'title':'031999999999'}),
                    'cellPhone': TextInput(attrs={'placeholder': 'Telefone', 'class': 'form', 'pattern': '^(\+\d{2})?\d{12}$', 'title':'031999999999'}),
                    'city': TextInput(attrs={'placeholder': 'Cidade', 'class': 'form'}),
-                   'address': TextInput(attrs={'placeholder': 'Endereço', 'class': 'form'}),
+                   'estado': TextInput(attrs={'placeholder': 'Estado', 'class': 'form'}),
+                   'bairro': TextInput(attrs={'placeholder': 'Bairro', 'class': 'form'}),
                    'street': TextInput(attrs={'placeholder': 'Rua', 'class': 'form'}),
                    'login': TextInput(attrs={'placeholder': 'Login', 'class': 'form', 'autocomplete':'new-login'}),
                    'password': PasswordInput(attrs={'placeholder': 'Senha', 'class': 'form', 'autocomplete':'new-password'})
@@ -37,8 +37,7 @@ class ConvenioForm(ModelForm):
 class MedicoForm(ModelForm):
 	class Meta:
 		model = Medico
-		fields = ['firstName','cpf','crm', 'email', 'phone', 'cellPhone', 'city', 'address', 'street', 'login',
-                   'password']
+		fields = ['firstName','cpf','crm', 'email', 'phone', 'cellPhone', 'city', 'address', 'street', 'login', 'password']
 		widgets = {'firstName': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
 			   
 			   'cpf': TextInput(attrs={'placeholder': 'CPF', 'class': 'form', 'pattern': '^(\d{11}$', 'title':'99999999999'}),
@@ -52,4 +51,27 @@ class MedicoForm(ModelForm):
                    	   'login': TextInput(attrs={'placeholder': 'Login', 'class': 'form', 'autocomplete':'new-login'}),
                    	   'password': PasswordInput(attrs={'placeholder': 'Senha', 'class': 'form', 'autocomplete':'new-password'})
                     }
+
+class HospForm(ModelForm):
+	class Meta:
+		model = Hospital
+		fields = ['nome', 'cnpj', 'email', 'phone', 'estado', 'city', 'bairro', 'street', 'planoSaude', 'login', 'password']
+		widgets = {'nome': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}), 
+				  'cnpj': TextInput(attrs={'placeholder': 'Sobrenome', 'class': 'form'}),
+				  'email': EmailInput(attrs={'placeholder': 'Email', 'class': 'form'}), 
+				  'phone': TextInput(attrs={'placeholder': 'Telefone', 'class': 'form', 'pattern': '^(\+\d{2})?\d{12}$', 'title':'031999999999'}), 
+				  'estado': TextInput(attrs={'placeholder': 'Estado', 'class': 'form'}),
+				  'city': TextInput(attrs={'placeholder': 'Cidade', 'class': 'form'}), 
+				  'bairro': TextInput(attrs={'placeholder': 'Bairro', 'class': 'form'}), 'street': TextInput(attrs={'placeholder': 'Rua', 'class': 'form'}), 'planoSaude': TextInput(attrs={'placeholder': 'Plano de Saude', 'class': 'form'}), 
+				  'login': TextInput(attrs={'placeholder': 'Login', 'class': 'form', 'autocomplete':'new-login'}),
+				  'password': PasswordInput(attrs={'placeholder': 'Senha', 'class': 'form', 'autocomplete':'new-password'})
+                   }
+
+
+class ExameForm(ModelForm):
+	class Meta:
+		model = Exame
+		fields = ['nome']
+		widgets = {'nome': TextInput(attrs={'placeholder': 'Nome', 'class': 'form'})
+                   }
 

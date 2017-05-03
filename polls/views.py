@@ -72,3 +72,43 @@ class MedicoDelete(DeleteView):
 
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
+
+class HospList(ListView):
+    model = Hospital
+
+class HospCreate(CreateView):
+    model = Hospital
+    success_url = reverse_lazy('hospital_list')
+    form_class = HospForm
+
+class HospUpdate(UpdateView):
+    model = Hospital
+    success_url = reverse_lazy('hospital_list')
+    form_class = HospForm
+
+class HospDelete(DeleteView):
+    model = Hospital
+    success_url = reverse_lazy('hospital_list')
+
+    def get(self, *a, **kw):
+        return self.delete(*a, **kw)
+
+class ExameList(ListView):
+    model = Exame
+
+class ExameCreate(CreateView):
+    model = Exame
+    success_url = reverse_lazy('exame_list')
+    form_class = ExameForm
+
+class ExameUpdate(UpdateView):
+    model = Exame
+    success_url = reverse_lazy('exame_list')
+    form_class = ExameForm
+
+class ExameDelete(DeleteView):
+    model = Exame
+    success_url = reverse_lazy('exame_list')
+
+    def get(self, *a, **kw):
+        return self.delete(*a, **kw)

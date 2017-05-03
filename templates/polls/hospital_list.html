@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de  Hospitais</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Hospitais</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+		    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+           {% if object_list %}
+                {% for hospital in object_list %}
+                    <tr>
+                        <td> {{ hospital.nome }} </td>
+                        <td> {{ hospital.phone }} </td>
+                        <td>
+                            <a href="{% url "hospital_edit" hospital.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "hospital_delete" hospital.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>	
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Hospitais</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <form action="{% url "hospital_new" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Adicionar</button>
+        </form>
+    </div>
+</body>
+</html>	
