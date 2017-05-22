@@ -17,7 +17,7 @@ class ConvenioList(ListView):
 	model = Convenio
 
 class PatientList(ListView):
-    model = Patient
+	model = Patient
 
 class MedicoList(ListView):
     model = Medico
