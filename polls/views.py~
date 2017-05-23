@@ -81,7 +81,7 @@ def MedicoSearchView(request):
     
         return render(request, 'polls/medico_search.html', { "form" : form })
     except:
-        return render(request, 'polls/medico_search.html', { "form" : form, "message" : "Tem esse nego não" })
+        return render(request, 'polls/medico_search.html', { "form" : form })
 
 class MedicoDelete(DeleteView):
     model = Medico

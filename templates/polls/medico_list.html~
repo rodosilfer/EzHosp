@@ -38,9 +38,9 @@
             </tbody>
         </table>
 	<form action="{% url "medico_search" %}">
-	    {% for item in form %}
+	    {{ for item in form }}
 		{{ item }}
-	    {% endfor %}
+	    {{ endfor }}
 	    <button class="form-btn center">Buscar</button>
 	</form>
         <form action="{% url "medico_new" %}" style="margin-top: 20px">
