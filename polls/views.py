@@ -48,6 +48,21 @@ class ConvenioUpdate(UpdateView):
     success_url = reverse_lazy('convenio_list')
     form_class = ConvenioForm
 
+class ConvenioView(DetailView):
+    model = Convenio
+
+def ConvenioSearchView(request):
+    form = ConvenioBuscarForm()
+    try:
+        if request.method == 'POST':
+            name = request.POST['firstName']
+            conv = Convenio.objects.filter(Q(firstName=name))  # | Q(income__isnull=True)firstName=fj''')
+            return redirect('/convenio/' + conv.id)
+
+        return render(request, 'polls/convenio_search.html', {"form": form})
+    except:
+        return render(request, 'polls/convenio_search.html', {"form": form, "message": "Convenio não encontrado"})
+
 class ConvenioDelete(DeleteView):
     model = Convenio
     success_url = reverse_lazy('convenio_list')

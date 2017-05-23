@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Lista de Convenio</title>
-    {% load static %}
+	<title>Busca por Convenio</title>
+	{% load static %}
 	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Convenios</h1>
+        <h1>Busca por Convenio</h1>
         <table class="table-list">
             <thead class="table-header">
                 <tr>
-                    <th>Nome Fantasia</th>
+                    <th>Nome</th>
                     <th>Email</th>
-		    <th>Telefone</th>
+                    <th>Telefone</th>
                     <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
-            {% if object_list %}
-                {% for convenio in object_list %}
+            	{% if convenio %}
                     <tr>
                         <td> {{ convenio.fantasyName }} </td>
                         <td> {{ convenio.email }} </td>
@@ -29,25 +28,21 @@
                             <a href="{% url "convenio_delete" convenio.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
                         </td>
                     </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="4" style="text-align: center">Sem Convenios</td>
-                </tr>
-            {% endif %}
+		{% else %}
+	            <tr>
+	                <td colspan="4" style="text-align: center">{{ message }}</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
-
-        <form action="{% url "convenio_search" %}">
-	    {% for item in form %}
-		{{ item }}
+	<form method="post" action="{% url "convenio_search" %}">
+	    {% csrf_token %}
+	    {% for field in form %}
+		{{ field }}
 	    {% endfor %}
 	    <button class="form-btn center">Buscar</button>
-	    </form>
-
-        <form action="{% url "convenio_new" %}" style="margin-top: 20px">
-            <button class="form-btn center" type="submit">Adicionar</button>
-        </form>
+	</form>
     </div>
 </body>
 </html>
+

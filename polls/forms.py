@@ -36,6 +36,14 @@ class ConvenioForm(ModelForm):
                    'password': PasswordInput(attrs={'placeholder': 'Senha', 'class': 'form', 'autocomplete': 'new-password'})
                    }
 
+class ConvenioBuscarForm(ModelForm):
+    class Meta:
+        model = Convenio
+        fields = ['firstName', 'fantasyName']
+        widgets = {'firstName': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
+                       'fantasyName': TextInput(attrs={'placeholder': 'Nome Fantasia', 'class': 'form'})
+                  }
+
 
 class MedicoForm(ModelForm):
     class Meta:
@@ -60,6 +68,7 @@ class MedicoBuscarForm(ModelForm):
         widgets = {'firstName': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
                    'crm': TextInput(attrs={'placeholder': 'CRM', 'class': 'form', 'pattern': '^(\d{10})$', 'title': '9999999999'}),
                    }
+
 
 class HospForm(ModelForm):
     class Meta:
