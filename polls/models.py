@@ -30,6 +30,7 @@ class Medico(models.Model):
 	firstName = models.CharField(max_length=50)
 	cpf = models.CharField(max_length=11)
 	crm = models.CharField(max_length=10)
+	especialidade = models.CharField(max_length=50)
 	email = models.CharField(max_length=50)
 	phone = models.CharField(max_length=14)
 	city = models.CharField(max_length=20)

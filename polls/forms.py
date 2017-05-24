@@ -48,10 +48,11 @@ class ConvenioBuscarForm(ModelForm):
 class MedicoForm(ModelForm):
     class Meta:
         model = Medico
-        fields = ['firstName', 'cpf', 'crm', 'email', 'phone', 'city', 'address', 'street', 'login', 'password']
+        fields = ['firstName', 'cpf', 'crm', 'especialidade', 'email', 'phone', 'city', 'address', 'street', 'login', 'password']
         widgets = {'firstName': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
                    'cpf': TextInput(attrs={'placeholder': 'CPF', 'class': 'form', 'pattern': '^(\d{11})$', 'title': '99999999999'}),
                    'crm': TextInput(attrs={'placeholder': 'CRD', 'class': 'form', 'pattern': '^(\d{10})$', 'title': '9999999999'}),
+		   'especialidade': TextInput(attrs={'placeholder': 'Especialidade', 'class': 'form'}),
                    'email': EmailInput(attrs={'placeholder': 'Email', 'class': 'form'}),
                    'phone': TextInput(attrs={'placeholder': 'Celular', 'class': 'form', 'pattern': '^(\+\d{2})?(\d{10}(\d{1})?)$', 'title': '031999999999'}),
                    'city': TextInput(attrs={'placeholder': 'Cidade', 'class': 'form'}),
