@@ -96,3 +96,12 @@ class ExameForm(ModelForm):
         fields = ['nome']
         widgets = {'nome': TextInput(attrs={'placeholder': 'Nome', 'class': 'form'})
                    }
+
+class ConsultaForm(ModelForm):
+    class Meta:
+        model = Consulta
+        fields = ['paciente', 'medico', 'horario']
+        widgets = {'paciente': Select(choices=Patient.objects.all(), attrs={'class': 'form'}),
+                   'medico': Select(choices=Medico.objects.all(), attrs={'class': 'form'}),
+                   'horario': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form', 'type':'datetime-local'})
+                   }

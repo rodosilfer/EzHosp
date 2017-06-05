@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nova Consulta</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Consulta</h1>
+        <form action="{{ action }}" method="post">{% csrf_token %}
+            {% for field in form %}
+                {{ field }}
+                <div id="{{ field.auto_id }}_errors">
+                  {{ field.error }}
+                </div>
+            {% endfor %}
+            <div class="center">
+                <button type="button" onclick="window.location='{% url "consulta_list" %}'" class="form-btn">Cancelar</button>
+                <button type="submit" class="form-btn">Criar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>  

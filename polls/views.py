@@ -144,3 +144,23 @@ class ExameDelete(DeleteView):
 
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
+
+class ConsultaList(ListView):
+    model = Consulta
+
+class ConsultaCreate(CreateView):
+    model = Consulta
+    success_url = reverse_lazy('consulta_list')
+    form_class = ConsultaForm
+
+class ConsultaUpdate(UpdateView):
+    model = Consulta
+    success_url = reverse_lazy('consulta_list')
+    form_class = ConsultaForm
+
+class ConsultaDelete(DeleteView):
+    model = Consulta
+    success_url = reverse_lazy('consulta_list')
+
+    def get(self, *a, **kw):
+        return self.delete(*a, **kw)

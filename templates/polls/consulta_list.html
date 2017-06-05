@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Consultas</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Consultas</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Medico</th>
+                    <th>Horario</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list %}
+                {% for consulta in object_list %}
+                    <tr>
+                        <td> {{ consulta.paciente }} </td>
+                        <td> {{ consulta.medico }} </td>
+                        <td> {{ consulta.horario }} </td>
+                        <td>
+                            <a href="{% url "consulta_edit" consulta.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "consulta_delete" consulta.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Consultas</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <form action="{% url "consulta_new" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Adicionar</button>
+        </form>
+    </div>
+</body>
+</html>
