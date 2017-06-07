@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %} ">
+    <title>EzHosp</title>
+</head>
+<body>
+    <h1>EzHosp</h1>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

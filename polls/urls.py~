@@ -1,9 +1,15 @@
+# -*- encoding: utf-8 -*-
 from django.conf.urls import url
 
 from . import views
 
 urlpatterns = [
+	#Autenticacao
 	url(r'^$', views.Index.as_view(), name='index'),
+	url(r'^login/$', views.logando, name='login_list'), #login_user .as_view()#
+	url(r'^logando/$', views.logando, name='logando'),
+	url(r'^logout/$', views.logout_user, name='logout'),
+
 	url(r'^exame/$', views.ExameList.as_view(), name='exame_list'),
 	url(r'^hospital/$', views.HospList.as_view(), name='hospital_list'),
 	url(r'^convenio/$', views.ConvenioList.as_view(), name='convenio_list'),
@@ -29,5 +35,6 @@ urlpatterns = [
 	url(r'^medico/delete/(?P<pk>\d+)$', views.MedicoDelete.as_view(), name = 'medico_delete'),
 
 	url(r'^medico/(?P<pk>\d+)$', views.MedicoView.as_view(), name = 'medico_view'),
-	url(r'^medico/search/(?P<q>\d+)$', views.MedicoSearchView, name = 'medico_search')
+	url(r'^medico/search/', views.MedicoSearchView, name = 'medico_search'),
+	url(r'^convenio/search/', views.ConvenioSearchView, name = 'convenio_search')
 ]

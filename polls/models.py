@@ -1,7 +1,7 @@
 from django.core.validators import RegexValidator
 from django.core.urlresolvers import reverse
 from django.db import models
-
+from django.conf import settings
 
 class Patient(models.Model):
 	firstName = models.CharField(max_length=50)
@@ -12,11 +12,19 @@ class Patient(models.Model):
 	estado = models.CharField(max_length=20)
 	bairro = models.CharField(max_length=30)
 	street = models.CharField(max_length=20)
+	cpf = models.CharField(max_length=11)
+	#convenio = models.ForeignKey('Convenio', blank = True)
 	login = models.CharField(max_length=20)
 	password = models.CharField(max_length=20)
-	cpf = models.CharField(max_length=11)
-
-	# convenio = models.ForeignKey('Convenio', blank = True)
+	#login = models.OneToOneField(
+	#	settings.AUTH_USER_MODEL,
+	#	on_delete=models.CASCADE,
+	#	related_name='login', # Se esse campo fosse emitido ele ja criaria uma tag em caixa baixa
+	#)
+	#password = models.OneToOneField(
+	#	settings.AUTH_USER_MODEL,
+	#	on_delete=models.CASCADE,
+	#)
 	def __str__(self):
 		return "%s %s" % (self.firstName, self.lastName)
 
@@ -57,16 +65,14 @@ class Hospital(models.Model):
 	city = models.CharField(max_length=20)
 	bairro = models.CharField(max_length=30)
 	street = models.CharField(max_length=20)
-	# convenio = models.ManyToManyField(Convenio)
+	#convenio = models.ManyToManyField(Convenio)
 	login = models.CharField(max_length=20)
 	password = models.CharField(max_length=20)
 	def __str__(self):
 		return "%s" % (self.nome)
 
-
 class Exame(models.Model):
 	nome = models.CharField(max_length=50)
-
 
 class Consulta(models.Model):
 	paciente = models.ForeignKey('Patient', on_delete=models.CASCADE)

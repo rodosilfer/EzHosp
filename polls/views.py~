@@ -1,7 +1,11 @@
+# -*- encoding: utf-8 -*-
+#Define funcoes em python que recebe um objeto HttpRequest e retorna um objeto HttpResponse
+#HttpRequest: criado automaticamente pelo Django. Contem os dados da requisicao que chegou.
+#HttpResponse: responsabilidade do programador. Todas views precisam retornar esse objeto.
+
 #from django.shortcuts import render
 
 # Create your views here.
-
 from django.http import HttpResponse
 from .forms import *
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -12,12 +16,54 @@ from django.db.models import Q
 
 from polls.models import *
 
+import StringIO
+#################################### PAGINA INICIAL ###################################
 class Index(TemplateView):
     template_name = "polls/index.html"
 
-class ConvenioList(ListView):
-	model = Convenio
+##################################### Autenticaçao ####################################
+class login_user(TemplateView):
+    template_name = "polls/login.html"
 
+def logando(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = request.POST['login']
+            password = request.POST['password']
+
+            user = authenticate(username=user, password=password)
+
+            if user is not None:
+                paciente = Paciente.objects.filter(django_user=request.user)
+                hospital = Hospital.objects.filter(django_user=request.user)
+                convenio = Convenio.objects.filter(django_user=request.user)
+                medico = Medico.objects.filter(django_user=request.user)
+
+                login(request, user)
+                if paciente.count() > 0:
+                    return render(request, 'polls/pPaciente.html', {'paciente': paciente[0]})
+                elif hospital.count() > 0:
+                    return render(request, 'polls/pHospital.html', {'hospital': hospital[0]})
+                elif convenio.count() > 0:
+                    return render(request, 'polls/pConvenio.html', {'convenio': convenio[0]})
+                elif medico.count() > 0:
+                    return render(request, 'polls/pMedico.html', {'medico': medico[0]})
+                else:
+                    return redirect('/admin/')
+            else:
+                return render(request, 'polls/index.html', {'form': form, 'erro': True})
+    else:
+        form = LoginForm()
+
+    return render(request, 'polls/index.html', {'form': form})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+##################################### PACIENTE #########################################
 class PatientList(ListView):
 	model = Patient
 
@@ -38,6 +84,10 @@ class PatientDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+##################################### Convenio #########################################
+class ConvenioList(ListView):
+	model = Convenio
+
 class ConvenioCreate(CreateView):
     model = Convenio
     success_url = reverse_lazy('convenio_list')
@@ -48,6 +98,21 @@ class ConvenioUpdate(UpdateView):
     success_url = reverse_lazy('convenio_list')
     form_class = ConvenioForm
 
+class ConvenioView(DetailView):
+    model = Convenio
+
+def ConvenioSearchView(request):
+    form = ConvenioBuscarForm()
+    try:
+        if request.method == 'POST':
+            name = request.POST['firstName']
+            conv = Convenio.objects.filter(Q(firstName=name))  # | Q(income__isnull=True)firstName=fj''')
+            return redirect('/convenio/' + conv.id)
+
+        return render(request, 'polls/convenio_search.html', {"form": form})
+    except:
+        return render(request, 'polls/convenio_search.html', {"form": form, "message": "Convenio não encontrado"})
+
 class ConvenioDelete(DeleteView):
     model = Convenio
     success_url = reverse_lazy('convenio_list')
@@ -55,6 +120,9 @@ class ConvenioDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+
+
+##################################### MEDICO #########################################
 class MedicoCreate(CreateView):
     model = Medico
     success_url = reverse_lazy('medico_list')
@@ -81,7 +149,7 @@ def MedicoSearchView(request):
     
         return render(request, 'polls/medico_search.html', { "form" : form })
     except:
-        return render(request, 'polls/medico_search.html', { "form" : form })
+        return render(request, 'polls/medico_search.html', { "form" : form, "message" : "Tem esse nego não" })
 
 class MedicoDelete(DeleteView):
     model = Medico
@@ -89,6 +157,9 @@ class MedicoDelete(DeleteView):
 
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
+
+
+##################################### HOSPITAL #########################################
 
 class HospList(ListView):
     model = Hospital
@@ -110,6 +181,8 @@ class HospDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+
+##################################### EXAME #########################################
 class ExameList(ListView):
     model = Exame
 

@@ -1,23 +1,108 @@
+# -*- encoding: utf-8 -*-
+#Define funcoes em python que recebe um objeto HttpRequest e retorna um objeto HttpResponse
+#HttpRequest: criado automaticamente pelo Django. Contem os dados da requisicao que chegou.
+#HttpResponse: responsabilidade do programador. Todas views precisam retornar esse objeto.
+
 #from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponse
+# -*- coding: utf-8 -*-
 from .forms import *
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, render
-
 from django.db.models import Q
-
 from polls.models import *
+from django.shortcuts import render
+from django.contrib.auth import login, logout
 
+#################################### PAGINA INICIAL ###################################
 class Index(TemplateView):
     template_name = "polls/index.html"
 
-class ConvenioList(ListView):
-	model = Convenio
+##################################### Autenticaçao ####################################
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = request.POST['user'] #Valor digitado na pg HTML
+            passw = request.POST['password'] #Valor digitado na pg HTML
+            #print "user: ", user
+            #print "password: ", password
+            paciente=None
+            hospital=None
+            convenio=None
+            medico=None
+            try:
+                paciente = Patient.objects.get(login=user, password=passw)
+            except:
+                pass
 
+            try:
+                hospital = Hospital.objects.get(login=user, password=passw)
+            except:
+                pass
+
+            try:
+                convenio = Convenio.objects.get(login=user, password=passw)
+            except:
+                pass
+
+            try:
+                medico = Medico.objects.get(login=user, password=passw)
+            except:
+                pass
+
+            loguser=None
+            flag=0
+            if paciente is not None:
+                loguser = paciente
+                flag=1
+                print("OK 1")
+            elif hospital is not None:
+                loguser = hospital
+                flag=2
+                print("OK 2")
+            elif convenio is not None:
+                loguser = convenio
+                flag = 3
+                print("OK 3")
+            elif medico is not None:
+                loguser = medico
+                flag = 4
+                print("OK 4")
+
+            #Faz o login
+            if loguser is not None: #user is not None:
+                print("loguser: ", loguser)
+                if flag==1:
+                    return render(request, 'polls/pPaciente.html', {'paciente': paciente})
+                elif flag==2:
+                    return render(request, 'polls/pHospital.html', {'hospital': hospital})
+                elif flag==3:
+                    return render(request, 'polls/pConvenio.html', {'convenio': convenio})
+                elif flag==4:
+                    return render(request, 'polls/pMedico.html', {'medico': medico})
+                else:
+                    return redirect("polls/login.html")#'/admin/')
+            else:
+                return render(request, 'polls/login.html', {'form': form, 'erro': True})
+                print("ERRO")
+        else:
+            return render(request, 'polls/login.html', {'form': form, 'erro': True})
+    else:
+        form = LoginForm()
+
+    return render(request, 'polls/login.html', {'form': form})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+
+##################################### PACIENTE #########################################
 class PatientList(ListView):
 	model = Patient
 
@@ -37,6 +122,10 @@ class PatientDelete(DeleteView):
 
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
+
+##################################### Convenio #########################################
+class ConvenioList(ListView):
+	model = Convenio
 
 class ConvenioCreate(CreateView):
     model = Convenio
@@ -70,6 +159,9 @@ class ConvenioDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+
+
+##################################### MEDICO #########################################
 class MedicoCreate(CreateView):
     model = Medico
     success_url = reverse_lazy('medico_list')
@@ -105,6 +197,9 @@ class MedicoDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+
+##################################### HOSPITAL #########################################
+
 class HospList(ListView):
     model = Hospital
 
@@ -125,6 +220,8 @@ class HospDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+
+##################################### EXAME #########################################
 class ExameList(ListView):
     model = Exame
 
@@ -145,6 +242,7 @@ class ExameDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+############################ CONSULTA ############################
 class ConsultaList(ListView):
     model = Consulta
 

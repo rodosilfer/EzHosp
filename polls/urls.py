@@ -1,9 +1,14 @@
+# -*- encoding: utf-8 -*-
 from django.conf.urls import url
 
 from . import views
 
 urlpatterns = [
+	#Autenticacao
 	url(r'^$', views.Index.as_view(), name='index'),
+	url(r'^login/$', views.login, name='login_list'), #login_user .as_view()#
+	url(r'^logout/$', views.logout_user, name='logout'),
+
 	url(r'^exame/$', views.ExameList.as_view(), name='exame_list'),
 	url(r'^hospital/$', views.HospList.as_view(), name='hospital_list'),
 	url(r'^convenio/$', views.ConvenioList.as_view(), name='convenio_list'),

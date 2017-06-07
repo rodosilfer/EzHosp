@@ -1,6 +1,21 @@
+# -*- encoding: utf-8 -*-
+#Biblioteca para trabalhar com formularios - Permite exibir formulario no template, validar
+#os dados que foram enviados, exibir erros de validaçao no template, converter os dados enviados
+#para tipos em python
+
+# fields: classe responsavel por realizar a validacao
+# widgets: representacao do field em HTML
+
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, Select
 from .models import *
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
+
+class LoginForm(forms.Form):
+    user = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nome de Usuario'}), label = '',max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Senha'}),label = '', max_length=30)
 
 class PatientForm(ModelForm):
     class Meta:
@@ -76,8 +91,8 @@ class HospForm(ModelForm):
         model = Hospital
         fields = ['nome', 'cnpj', 'email', 'phone', 'estado', 'city', 'bairro', 'street', 'login',
                   'password']
-        widgets = {'nome': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
-                   'cnpj': TextInput(attrs={'placeholder': 'Sobrenome', 'class': 'form'}),
+        widgets = {'nome': TextInput(attrs={'placeholder': 'Nome', 'class': 'form'}),
+                   'cnpj': TextInput(attrs={'placeholder': 'CNPJ', 'class': 'form'}),
                    'email': EmailInput(attrs={'placeholder': 'Email', 'class': 'form'}),
                    'phone': TextInput(attrs={'placeholder': 'Telefone', 'class': 'form', 'pattern': '^(\+\d{2})?(\d{10}(\d{1})?)$', 'title': '031999999999'}),
                    'estado': TextInput(attrs={'placeholder': 'Estado', 'class': 'form'}),
