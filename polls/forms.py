@@ -108,9 +108,30 @@ class HospForm(ModelForm):
 class ExameForm(ModelForm):
     class Meta:
         model = Exame
-        fields = ['nome']
-        widgets = {'nome': TextInput(attrs={'placeholder': 'Nome', 'class': 'form'})
+        fields = ['nome','hospital']
+        widgets = {'nome': TextInput(attrs={'placeholder': 'Nome', 'class': 'form'}),
+                   'hospital': Select(choices=Medico.objects.all(), attrs={'class': 'form'}),
                    }
+
+
+class ExameBuscarForm(ModelForm):
+    class Meta:
+        model = Exame
+        fields = ['nome', 'hospital']
+        widgets = {'nome': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
+                   'hospital': Select(choices=Medico.objects.all(), attrs={'class': 'form'})
+                   }
+
+class ExameMarcar(ModelForm):
+    class Meta:
+        model = Exame
+        fields = ['paciente', 'hospital']
+        widgets = {'paciente': Select(choices=Patient.objects.all(), attrs={'class': 'form'}),
+                   'nome': Select(choices=Exame.objects.all(), attrs={'class': 'form'}),
+                   #'horario': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form', 'type':'datetime-local'}),
+                   'hospital': Select(choices=Hospital.objects.all(), attrs={'class': 'form'})
+                   }
+
 
 class ConsultaForm(ModelForm):
     class Meta:

@@ -242,6 +242,26 @@ class ExameDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+class ExameView(DetailView):
+    model = Exame
+def ExameSearchView(request):
+    form =ExameBuscarForm()
+    try:
+        if request.method == 'POST':
+            nome = request.POST['nome']
+            exm = Exame.objects.filter(Q(nome=nome))  # | Q(income__isnull=True)firstName=fj''')
+            return redirect('/exame/' + exm.id)
+
+        return render(request, 'polls/exame_search.html', {"form": form})
+    except:
+        return render(request, 'polls/exame_search.html', {"form": form, "message": "Exame nao encontrado"})
+
+class MarcarExameCreate(CreateView):
+    model = Exame
+    success_url = reverse_lazy('exame_list')
+    form_class = ExameMarcar
+
+
 ############################ CONSULTA ############################
 class ConsultaList(ListView):
     model = Consulta

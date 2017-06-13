@@ -39,5 +39,8 @@ urlpatterns = [
 
 	url(r'^medico/(?P<pk>\d+)$', views.MedicoView.as_view(), name = 'medico_view'),
 	url(r'^medico/search/', views.MedicoSearchView, name = 'medico_search'),
-	url(r'^convenio/search/', views.ConvenioSearchView, name = 'convenio_search')
+	url(r'^convenio/search/', views.ConvenioSearchView, name = 'convenio_search'),
+    url(r'^exame/search/', views.ExameSearchView, name = 'exame_search'),
+	url(r'^exame/marcar/', views.MarcarExameCreate, name = 'exame_marcar')
+
 ]

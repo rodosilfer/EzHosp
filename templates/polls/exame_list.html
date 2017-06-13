@@ -12,6 +12,7 @@
             <thead class="table-header">
                 <tr>
                     <th>Nome</th>
+                    <th>Hopital</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -36,7 +37,16 @@
 
         <form action="{% url "exame_new" %}" style="margin-top: 20px">
             <button class="form-btn center" type="submit">Adicionar</button>
-            <button class="form-btn center" type="submit">Adicionar</button>
+
+        </form>
+
+        <form action="{% url "exame_search" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Buscar</button>
+
+        </form>
+    <form action="{% url "exame_marcar" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Marcar Exame</button>
+
         </form>
     </div>
 </body>

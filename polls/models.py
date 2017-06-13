@@ -73,6 +73,9 @@ class Hospital(models.Model):
 
 class Exame(models.Model):
 	nome = models.CharField(max_length=50)
+	hospital = models.ManyToManyField(Hospital)
+	#horario = models.DateTimeField()
+	paciente = models.ManyToManyField(Patient)
 
 class Consulta(models.Model):
 	paciente = models.ForeignKey('Patient', on_delete=models.CASCADE)
