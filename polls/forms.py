@@ -66,7 +66,7 @@ class MedicoForm(ModelForm):
         fields = ['firstName', 'cpf', 'crm', 'especialidade', 'email', 'phone', 'city', 'address', 'street', 'login', 'password']
         widgets = {'firstName': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
                    'cpf': TextInput(attrs={'placeholder': 'CPF', 'class': 'form', 'pattern': '^(\d{11})$', 'title': '99999999999'}),
-                   'crm': TextInput(attrs={'placeholder': 'CRD', 'class': 'form', 'pattern': '^(\d{10})$', 'title': '9999999999'}),
+                   'crm': TextInput(attrs={'placeholder': 'CRM', 'class': 'form', 'pattern': '^(\d{10})$', 'title': '9999999999'}),
 		   'especialidade': TextInput(attrs={'placeholder': 'Especialidade', 'class': 'form'}),
                    'email': EmailInput(attrs={'placeholder': 'Email', 'class': 'form'}),
                    'phone': TextInput(attrs={'placeholder': 'Celular', 'class': 'form', 'pattern': '^(\+\d{2})?(\d{10}(\d{1})?)$', 'title': '031999999999'}),
@@ -125,10 +125,18 @@ class ExameBuscarForm(ModelForm):
 class ExameMarcar(ModelForm):
     class Meta:
         model = Exame
-        fields = ['paciente', 'hospital']
+        fields = ['paciente', 'nome', 'hospital']
         widgets = {'paciente': Select(choices=Patient.objects.all(), attrs={'class': 'form'}),
                    'nome': Select(choices=Exame.objects.all(), attrs={'class': 'form'}),
                    #'horario': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form', 'type':'datetime-local'}),
+                   'hospital': Select(choices=Hospital.objects.all(), attrs={'class': 'form'})
+                   }
+
+class GerenciarExameForm(ModelForm):
+    class Meta:
+        model = GerenciarExame
+        fields = ['hospital']
+        widgets = {
                    'hospital': Select(choices=Hospital.objects.all(), attrs={'class': 'form'})
                    }
 
@@ -141,3 +149,9 @@ class ConsultaForm(ModelForm):
                    'medico': Select(choices=Medico.objects.all(), attrs={'class': 'form'}),
                    'horario': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form', 'type':'datetime-local'})
                    }
+
+class GExameForm(ModelForm):
+    class Meta: Exame
+    fields = ['exame']
+    widgets = {'exame': Select(choices=Exame.objects.all(),attrs={'class': 'form'})}
+

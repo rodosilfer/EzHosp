@@ -261,6 +261,11 @@ class MarcarExameCreate(CreateView):
     success_url = reverse_lazy('exame_list')
     form_class = ExameMarcar
 
+class GerenciarExame(CreateView):
+    model = GerenciarExame
+    success_url = reverse_lazy('gerenciarexame_list')
+    form_class = GerenciarExameForm
+
 
 ############################ CONSULTA ############################
 class ConsultaList(ListView):

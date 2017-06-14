@@ -76,6 +76,14 @@ class Exame(models.Model):
 	hospital = models.ManyToManyField(Hospital)
 	#horario = models.DateTimeField()
 	paciente = models.ManyToManyField(Patient)
+	def __str__(self):
+		return self.nome
+
+class GerenciarExame(models.Model):
+	hospital = models.ManyToManyField(Hospital)
+	#horario = models.DateTimeField()
+	def __str__(self):
+		return self.nome
 
 class Consulta(models.Model):
 	paciente = models.ForeignKey('Patient', on_delete=models.CASCADE)

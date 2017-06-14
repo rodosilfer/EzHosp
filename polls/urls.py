@@ -15,6 +15,7 @@ urlpatterns = [
 	url(r'^patient/$', views.PatientList.as_view(), name='patient_list'),
 	url(r'^medico/$', views.MedicoList.as_view(), name='medico_list'),
 	url(r'^consulta/$', views.ConsultaList.as_view(), name='consulta_list'),
+	url(r'^gerenciarexame/$', views.GerenciarExame.as_view(), name='gerenciarexame_list'),
 
 	url(r'^exame/new$', views.ExameCreate.as_view(), name='exame_new'),
 	url(r'^hospital/new$', views.HospCreate.as_view(), name='hospital_new'),
@@ -40,7 +41,7 @@ urlpatterns = [
 	url(r'^medico/(?P<pk>\d+)$', views.MedicoView.as_view(), name = 'medico_view'),
 	url(r'^medico/search/', views.MedicoSearchView, name = 'medico_search'),
 	url(r'^convenio/search/', views.ConvenioSearchView, name = 'convenio_search'),
-    url(r'^exame/search/', views.ExameSearchView, name = 'exame_search'),
+        url(r'^exame/search/', views.ExameSearchView, name = 'exame_search'),
 	url(r'^exame/marcar/', views.MarcarExameCreate, name = 'exame_marcar')
 
 ]

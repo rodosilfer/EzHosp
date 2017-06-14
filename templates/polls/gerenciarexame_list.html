@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gerenciar Exame</title>
+	{% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciar Exame</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Gerenciar</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            	{% if exame %}
+                    <tr>
+                        <td> {{ exame.nome }} </td>
+
+                        <td>
+                            <a href="{% url "exame_edit" exame.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "exame_delete" exame.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>
+		{% else %}
+	            <tr>
+	                <td colspan="4" style="text-align: center">{{ message }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+	<form method="post" action="{% url "gerenciarexame_list" %}">
+	    {% csrf_token %}
+	    {% for field in form %}
+		{{ field }}
+	    {% endfor %}
+	    <button class="form-btn center">Exames</button>
+	</form>
+    </div>
+</body>
+</html>
+
