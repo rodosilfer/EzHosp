@@ -9,7 +9,8 @@ urlpatterns = [
 	url(r'^login/$', views.login, name='login_list'), #login_user .as_view()#
 	url(r'^logout/$', views.logout_user, name='logout'),
 
-	url(r'^exame/$', views.ExameList.as_view(), name='exame_list'),
+	url(r'^modeloexame/$', views.ModeloExameList.as_view(), name='modelo_exame_list'),
+	url(r'^exame/$', views.ExameList.as_view(), name='modelo_exame_list'),
 	url(r'^hospital/$', views.HospList.as_view(), name='hospital_list'),
 	url(r'^convenio/$', views.ConvenioList.as_view(), name='convenio_list'),
 	url(r'^patient/$', views.PatientList.as_view(), name='patient_list'),
@@ -17,14 +18,14 @@ urlpatterns = [
 	url(r'^consulta/$', views.ConsultaList.as_view(), name='consulta_list'),
 	url(r'^gerenciarexame/$', views.GerenciarExame.as_view(), name='gerenciarexame_list'),
 
-	url(r'^exame/new$', views.ExameCreate.as_view(), name='exame_new'),
+	url(r'^exame/new$', views.ModeloExameCreate.as_view(), name='exame_new'),
 	url(r'^hospital/new$', views.HospCreate.as_view(), name='hospital_new'),
 	url(r'^convenio/new$', views.ConvenioCreate.as_view(), name='convenio_new'),
 	url(r'^patient/new$', views.PatientCreate.as_view(), name='patient_new'),
 	url(r'^medico/new$', views.MedicoCreate.as_view(), name='medico_new'),
 	url(r'^consulta/new$', views.ConsultaCreate.as_view(), name='consulta_new'),
 
-	url(r'^exame/edit/(?P<pk>\d+)$$', views.ExameUpdate.as_view(), name='exame_edit'),
+	url(r'^exame/edit/(?P<pk>\d+)$$', views.ModeloExameUpdate.as_view(), name='exame_edit'),
 	url(r'^hospital/edit/(?P<pk>\d+)$', views.HospUpdate.as_view(), name='hospital_edit'),
 	url(r'^convenio/edit/(?P<pk>\d+)$', views.ConvenioUpdate.as_view(), name='convenio_edit'),
 	url(r'^patient/edit/(?P<pk>\d+)$', views.PatientUpdate.as_view(), name='patient_edit'),

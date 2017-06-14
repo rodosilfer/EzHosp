@@ -221,20 +221,30 @@ class HospDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+##################################### MODEL0 EXAME #########################################
+class ModeloExameList(ListView):
+    model = ModeloExame
+
+class ModeloExameCreate(CreateView):
+    model = ModeloExame
+    success_url = reverse_lazy('modelo_exame_list')
+    form_class = ModeloExameForm
+
+class ModeloExameUpdate(UpdateView):
+    model = ModeloExame
+    success_url = reverse_lazy('modelo_exame_list')
+    form_class = ModeloExameForm
+
+class ExameDelete(DeleteView):
+    model = ModeloExame
+    success_url = reverse_lazy('modelo_exame_list')
+
+    def get(self, *a, **kw):
+        return self.delete(*a, **kw)
 
 ##################################### EXAME #########################################
 class ExameList(ListView):
     model = Exame
-
-class ExameCreate(CreateView):
-    model = Exame
-    success_url = reverse_lazy('exame_list')
-    form_class = ExameForm
-
-class ExameUpdate(UpdateView):
-    model = Exame
-    success_url = reverse_lazy('exame_list')
-    form_class = ExameForm
 
 class ExameDelete(DeleteView):
     model = Exame

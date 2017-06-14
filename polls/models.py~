@@ -78,7 +78,7 @@ class ModeloExame(models.Model):
 		return self.nome
 
 class Exame(models.Model):
-	nome = models.ForeignKey('ModeloExame', on_delete=models.CASCADE)
+	nome = models.CharField(max_length=50)
 	hospital = models.ForeignKey('Hospital', on_delete=models.CASCADE)
 	#horario = models.DateTimeField()
 	paciente = models.ForeignKey('Patient', on_delete=models.CASCADE)

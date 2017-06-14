@@ -9,24 +9,29 @@
 <body>
     <div class="container">
         <h1>EzHosp</h1>
-	<form action="{% url 'login_list' %}">
+	    <form action="{% url 'login_list' %}">
             <button type="submit" class="form-btn">Login</button>
         </form>	
         <form action="{% url 'patient_list' %}">
             <button type="submit" class="form-btn">Pacientes</button>
         </form>
-	<form action="{% url 'convenio_list' %}">
+	    <form action="{% url 'convenio_list' %}">
             <button type="submit" class="form-btn">Convenio</button>
         </form>
-	<form action="{% url 'medico_list' %}">
+	    <form action="{% url 'medico_list' %}">
             <button type="submit" class="form-btn">Medico</button>
         </form>
-	</form>
-	<form action="{% url 'hospital_list' %}">
+	    <form action="{% url 'hospital_list' %}">
             <button type="submit" class="form-btn">Hospital</button>
         </form>
-	<form action="{% url 'exame_list' %}">
+        <form action="{% url 'exame_list' %}">
             <button type="submit" class="form-btn">Exame</button>
+        </form>
+        <form action="{% url 'gerenciarexame_list' %}">
+            <button type="submit" class="form-btn">Gerenciar Exame</button>
+        </form>
+        <form action="{% url 'consulta_list' %}">
+            <button type="submit" class="form-btn">Consulta</button>
         </form>
 
     </div>
