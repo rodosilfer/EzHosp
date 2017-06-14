@@ -80,9 +80,9 @@ class MedicoForm(ModelForm):
 class MedicoBuscarForm(ModelForm):
     class Meta:
         model = Medico
-        fields = ['firstName', 'crm']
+        fields = ['firstName', 'especialidade']
         widgets = {'firstName': TextInput(attrs={'placeholder': 'Primeiro Nome', 'class': 'form'}),
-                   'crm': TextInput(attrs={'placeholder': 'CRM', 'class': 'form', 'pattern': '^(\d{10})$', 'title': '9999999999'}),
+                   'especialidade': TextInput(attrs={'placeholder': 'Especialidade', 'class': 'form'}),
                    }
 
 

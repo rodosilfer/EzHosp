@@ -6,62 +6,101 @@
 #from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+
+# -*- coding: utf-8 -*-
 from .forms import *
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, render
-
 from django.db.models import Q
-
 from polls.models import *
+from django.shortcuts import render
+from django.contrib.auth import login, logout
 
-import StringIO
 #################################### PAGINA INICIAL ###################################
 class Index(TemplateView):
     template_name = "polls/index.html"
 
 ##################################### Autenticaçao ####################################
-class login_user(TemplateView):
-    template_name = "polls/login.html"
-
-def logando(request):
+def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = request.POST['login']
-            password = request.POST['password']
+            user = request.POST['user'] #Valor digitado na pg HTML
+            passw = request.POST['password'] #Valor digitado na pg HTML
+            #print "user: ", user
+            #print "password: ", password
+            paciente=None
+            hospital=None
+            convenio=None
+            medico=None
+            try:
+                paciente = Patient.objects.get(login=user, password=passw)
+            except:
+                pass
 
-            user = authenticate(username=user, password=password)
+            try:
+                hospital = Hospital.objects.get(login=user, password=passw)
+            except:
+                pass
 
-            if user is not None:
-                paciente = Paciente.objects.filter(django_user=request.user)
-                hospital = Hospital.objects.filter(django_user=request.user)
-                convenio = Convenio.objects.filter(django_user=request.user)
-                medico = Medico.objects.filter(django_user=request.user)
+            try:
+                convenio = Convenio.objects.get(login=user, password=passw)
+            except:
+                pass
 
-                login(request, user)
-                if paciente.count() > 0:
-                    return render(request, 'polls/pPaciente.html', {'paciente': paciente[0]})
-                elif hospital.count() > 0:
-                    return render(request, 'polls/pHospital.html', {'hospital': hospital[0]})
-                elif convenio.count() > 0:
-                    return render(request, 'polls/pConvenio.html', {'convenio': convenio[0]})
-                elif medico.count() > 0:
-                    return render(request, 'polls/pMedico.html', {'medico': medico[0]})
+            try:
+                medico = Medico.objects.get(login=user, password=passw)
+            except:
+                pass
+
+            loguser=None
+            flag=0
+            if paciente is not None:
+                loguser = paciente
+                flag=1
+                print("OK 1")
+            elif hospital is not None:
+                loguser = hospital
+                flag=2
+                print("OK 2")
+            elif convenio is not None:
+                loguser = convenio
+                flag = 3
+                print("OK 3")
+            elif medico is not None:
+                loguser = medico
+                flag = 4
+                print("OK 4")
+
+            #Faz o login
+            if loguser is not None: #user is not None:
+                print("loguser: ", loguser)
+                if flag==1:
+                    return render(request, 'polls/pPaciente.html', {'paciente': paciente})
+                elif flag==2:
+                    return render(request, 'polls/pHospital.html', {'hospital': hospital})
+                elif flag==3:
+                    return render(request, 'polls/pConvenio.html', {'convenio': convenio})
+                elif flag==4:
+                    return render(request, 'polls/pMedico.html', {'medico': medico})
                 else:
-                    return redirect('/admin/')
+                    return redirect("polls/login.html")#'/admin/')
             else:
-                return render(request, 'polls/index.html', {'form': form, 'erro': True})
+                return render(request, 'polls/login.html', {'form': form, 'erro': True})
+                print("ERRO")
+        else:
+            return render(request, 'polls/login.html', {'form': form, 'erro': True})
     else:
         form = LoginForm()
 
-    return render(request, 'polls/index.html', {'form': form})
+    return render(request, 'polls/login.html', {'form': form})
 
 
 def logout_user(request):
     logout(request)
     return redirect('/')
+
 
 ##################################### PACIENTE #########################################
 class PatientList(ListView):
@@ -137,19 +176,20 @@ class MedicoList(ListView):
     model = Medico
 
 class MedicoView(DetailView):
-    model = Medico
+    model = Medico'
 
 def MedicoSearchView(request):
-    form = MedicoBuscarForm()
-    try:
-        if request.method == 'POST':
-            name = request.POST['firstName']
-            med = Medico.objects.filter(Q(firstName=name))# | Q(income__isnull=True)firstName=fj''')
-            return redirect('/medico/' + med.id)
+	form = MedicoBuscarForm(request.POST or None)
+	try:
+		if request.method == 'POST':
+			name = request.POST['firstName']
+			med = Medico.objects.get(Q(firstName=name))# | Q(income__isnull=True)firstName=fj''')
+			return redirect('/medico/' + str(med.id))
     
-        return render(request, 'polls/medico_search.html', { "form" : form })
-    except:
-        return render(request, 'polls/medico_search.html', { "form" : form, "message" : "Tem esse nego não" })
+		return render(request, 'polls/medico_search.html', { "form" : form })
+	except Exception as e:
+		print (e)
+		return render(request, 'polls/medico_search.html', { "form" : form, "message" : "Medico não encontrado" })
 
 class MedicoDelete(DeleteView):
     model = Medico
@@ -199,6 +239,52 @@ class ExameUpdate(UpdateView):
 class ExameDelete(DeleteView):
     model = Exame
     success_url = reverse_lazy('exame_list')
+
+    def get(self, *a, **kw):
+        return self.delete(*a, **kw)
+
+class ExameView(DetailView):
+    model = Exame
+def ExameSearchView(request):
+    form =ExameBuscarForm()
+    try:
+        if request.method == 'POST':
+            nome = request.POST['nome']
+            exm = Exame.objects.filter(Q(nome=nome))  # | Q(income__isnull=True)firstName=fj''')
+            return redirect('/exame/' + exm.id)
+
+        return render(request, 'polls/exame_search.html', {"form": form})
+    except:
+        return render(request, 'polls/exame_search.html', {"form": form, "message": "Exame nao encontrado"})
+
+class MarcarExameCreate(CreateView):
+    model = Exame
+    success_url = reverse_lazy('exame_list')
+    form_class = ExameMarcar
+
+class GerenciarExame(CreateView):
+    model = GerenciarExame
+    success_url = reverse_lazy('gerenciarexame_list')
+    form_class = GerenciarExameForm
+
+
+############################ CONSULTA ############################
+class ConsultaList(ListView):
+    model = Consulta
+
+class ConsultaCreate(CreateView):
+    model = Consulta
+    success_url = reverse_lazy('consulta_list')
+    form_class = ConsultaForm
+
+class ConsultaUpdate(UpdateView):
+    model = Consulta
+    success_url = reverse_lazy('consulta_list')
+    form_class = ConsultaForm
+
+class ConsultaDelete(DeleteView):
+    model = Consulta
+    success_url = reverse_lazy('consulta_list')
 
     def get(self, *a, **kw):
         return self.delete(*a, **kw)

@@ -179,16 +179,17 @@ class MedicoView(DetailView):
     model = Medico
 
 def MedicoSearchView(request):
-    form = MedicoBuscarForm()
-    try:
-        if request.method == 'POST':
-            name = request.POST['firstName']
-            med = Medico.objects.filter(Q(firstName=name))# | Q(income__isnull=True)firstName=fj''')
-            return redirect('/medico/' + med.id)
+	form = MedicoBuscarForm(request.POST or None)
+	try:
+		if request.method == 'POST':
+			name = request.POST['firstName']
+			med = Medico.objects.get(Q(firstName=name))# | Q(income__isnull=True)firstName=fj''')
+			return redirect('/medico/' + str(med.id))
     
-        return render(request, 'polls/medico_search.html', { "form" : form })
-    except:
-        return render(request, 'polls/medico_search.html', { "form" : form, "message" : "Tem esse nego não" })
+		return render(request, 'polls/medico_search.html', { "form" : form })
+	except Exception as e:
+		print (e)
+		return render(request, 'polls/medico_search.html', { "form" : form, "message" : "Medico não encontrado" })
 
 class MedicoDelete(DeleteView):
     model = Medico
