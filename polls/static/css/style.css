@@ -6,7 +6,7 @@
 
 /* Input Styles */
 
-.form{
+input, select{
     width: 100%;
     padding: 10px;
     background:#f8f8f8;
@@ -19,16 +19,16 @@
     transition: all 0.4s;
 }
 
-.error-input .form{
+.error-input input{
     border:1px solid #ff4444 !important;
 }
 
-.form:hover{
+input:hover{
     outline-style: none;
     border:1px solid #66afe9;
 }
 
-.form:focus{
+input:focus{
     color: white;
     outline-style: auto;
     border:1px solid #66afe9;
@@ -67,10 +67,6 @@
 
 .form-btn:active{
     opacity: 0.9;
-}
-input {
-    position: relative;
-    z-index: 9999;
 }
 
 /* Table */

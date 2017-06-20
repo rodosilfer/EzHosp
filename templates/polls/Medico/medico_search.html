@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Busca por Convenio</title>
+	<title>Busca por Medico</title>
 	{% load static %}
 	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Busca por Convenio</h1>
+        <h1>Busca por Medico</h1>
         <table class="table-list">
             <thead class="table-header">
                 <tr>
@@ -18,14 +18,14 @@
                 </tr>
             </thead>
             <tbody>
-            	{% if convenio %}
+            	{% if medico %}
                     <tr>
-                        <td> {{ convenio.fantasyName }} </td>
-                        <td> {{ convenio.email }} </td>
-                        <td> {{ convenio.phone }} </td>
+                        <td> {{ medico.firstName }} </td>
+                        <td> {{ medico.email }} </td>
+                        <td> {{ medico.phone }} </td>
                         <td>
-                            <a href="{% url "convenio_edit" convenio.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
-                            <a href="{% url "convenio_delete" convenio.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                            <a href="{% url "medico_edit" medico.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "medico_delete" medico.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
                         </td>
                     </tr>
 		{% else %}
@@ -35,10 +35,12 @@
                 {% endif %}
             </tbody>
         </table>
-	<form method="post" action="{% url "convenio_search" %}">
+    <br>
+	<form method="post" action="{% url "medico_search" %}">
 	    {% csrf_token %}
 	    {% for field in form %}
-		{{ field }}
+		    {{ field.label }}
+            {{ field }}
 	    {% endfor %}
 	    <button class="form-btn center">Buscar</button>
 	</form>

@@ -104,41 +104,45 @@ def logout_user(request):
 
 ##################################### PACIENTE #########################################
 class PatientList(ListView):
-	model = Patient
+    model = Patient
+    template_name = 'polls/Paciente/patient_list.html'
 
 class PatientCreate(CreateView):
     model = Patient
     success_url = reverse_lazy('patient_list')
     form_class = PatientForm
+    template_name = 'polls/Paciente/patient_form.html'
 
 class PatientUpdate(UpdateView):
     model = Patient
     success_url = reverse_lazy('patient_list')
     form_class = PatientForm
+    template_name = 'polls/Paciente/patient_form.html'
 
 class PatientDelete(DeleteView):
     model = Patient
     success_url = reverse_lazy('patient_list')
+    template_name = 'polls/Paciente/patient_confirm_delete.html'
 
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
 ##################################### Convenio #########################################
 class ConvenioList(ListView):
-	model = Convenio
+    model = Convenio
+    template_name = 'polls/Convenio/convenio_list.html'
 
 class ConvenioCreate(CreateView):
     model = Convenio
     success_url = reverse_lazy('convenio_list')
     form_class = ConvenioForm
+    template_name = 'polls/Convenio/convenio_form.html'
 
 class ConvenioUpdate(UpdateView):
     model = Convenio
     success_url = reverse_lazy('convenio_list')
     form_class = ConvenioForm
-
-class ConvenioView(DetailView):
-    model = Convenio
+    template_name = 'polls/Convenio/convenio_form.html'
 
 def ConvenioSearchView(request):
     form = ConvenioBuscarForm()
@@ -148,9 +152,9 @@ def ConvenioSearchView(request):
             conv = Convenio.objects.filter(Q(firstName=name))  # | Q(income__isnull=True)firstName=fj''')
             return redirect('/convenio/' + conv.id)
 
-        return render(request, 'polls/convenio_search.html', {"form": form})
+        return render(request, 'polls/Convenio/convenio_search.html', {"form": form})
     except:
-        return render(request, 'polls/convenio_search.html', {"form": form, "message": "Convenio não encontrado"})
+        return render(request, 'polls/Convenio/convenio_search.html', {"form": form, "message": "Convenio não encontrado"})
 
 class ConvenioDelete(DeleteView):
     model = Convenio
@@ -166,17 +170,21 @@ class MedicoCreate(CreateView):
     model = Medico
     success_url = reverse_lazy('medico_list')
     form_class = MedicoForm
+    template_name = 'polls/Medico/medico_form.html'
 
 class MedicoUpdate(UpdateView):
     model = Medico
     success_url = reverse_lazy('medico_list')
     form_class = MedicoForm
+    template_name = 'polls/Medico/medico_form.html'
 
 class MedicoList(ListView):
     model = Medico
+    template_name = 'polls/Medico/medico_list.html'
 
 class MedicoView(DetailView):
     model = Medico
+    template_name = 'polls/Medico/medico_detail.html'
 
 def MedicoSearchView(request):
 	form = MedicoBuscarForm(request.POST or None)
@@ -186,33 +194,36 @@ def MedicoSearchView(request):
 			med = Medico.objects.get(Q(firstName=name))# | Q(income__isnull=True)firstName=fj''')
 			return redirect('/medico/' + str(med.id))
     
-		return render(request, 'polls/medico_search.html', { "form" : form })
+		return render(request, 'polls/Medico/medico_search.html', { "form" : form })
 	except Exception as e:
 		print (e)
-		return render(request, 'polls/medico_search.html', { "form" : form, "message" : "Medico não encontrado" })
+		return render(request, 'polls/Medico/medico_search.html', { "form" : form, "message" : "Medico não encontrado" })
 
 class MedicoDelete(DeleteView):
-    model = Medico
-    success_url = reverse_lazy('medico_list')
+	model = Medico
+	success_url = reverse_lazy('medico_list')
 
-    def get(self, *a, **kw):
-        return self.delete(*a, **kw)
+	def get(self, *a, **kw):
+		return self.delete(*a, **kw)
 
 
 ##################################### HOSPITAL #########################################
 
 class HospList(ListView):
-    model = Hospital
+	model = Hospital
+	template_name = 'polls/Hospital/hospital_list.html'
 
 class HospCreate(CreateView):
     model = Hospital
     success_url = reverse_lazy('hospital_list')
     form_class = HospForm
+    template_name = 'polls/Hospital/hospital_form.html'
 
 class HospUpdate(UpdateView):
     model = Hospital
     success_url = reverse_lazy('hospital_list')
     form_class = HospForm
+    template_name = 'polls/Hospital/hospital_form.html'
 
 class HospDelete(DeleteView):
     model = Hospital
@@ -221,21 +232,24 @@ class HospDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
-##################################### MODEL0 EXAME #########################################
+##################################### MODELO EXAME #########################################
 class ModeloExameList(ListView):
     model = ModeloExame
+    template_name = 'polls/ModeloExame/modelo_exame_list.html'
 
 class ModeloExameCreate(CreateView):
     model = ModeloExame
     success_url = reverse_lazy('modelo_exame_list')
     form_class = ModeloExameForm
+    template_name = 'polls/ModeloExame/modelo_exame_form.html'
 
 class ModeloExameUpdate(UpdateView):
     model = ModeloExame
     success_url = reverse_lazy('modelo_exame_list')
     form_class = ModeloExameForm
+    template_name = 'polls/ModeloExame/modelo_exame_form.html'
 
-class ExameDelete(DeleteView):
+class ModeloExameDelete(DeleteView):
     model = ModeloExame
     success_url = reverse_lazy('modelo_exame_list')
 
@@ -245,6 +259,13 @@ class ExameDelete(DeleteView):
 ##################################### EXAME #########################################
 class ExameList(ListView):
     model = Exame
+    template_name = 'polls/Exame/exame_list.html'
+
+class MarcarExameCreate(CreateView):
+    model = Exame
+    success_url = reverse_lazy('exame_list')
+    form_class = ExameMarcar
+    template_name = 'polls/Exame/exame_marcar.html'
 
 class ExameDelete(DeleteView):
     model = Exame
@@ -253,8 +274,6 @@ class ExameDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
-class ExameView(DetailView):
-    model = Exame
 def ExameSearchView(request):
     form =ExameBuscarForm()
     try:
@@ -263,14 +282,9 @@ def ExameSearchView(request):
             exm = Exame.objects.filter(Q(nome=nome))  # | Q(income__isnull=True)firstName=fj''')
             return redirect('/exame/' + exm.id)
 
-        return render(request, 'polls/exame_search.html', {"form": form})
+        return render(request, 'polls/Exame/exame_search.html', {"form": form})
     except:
-        return render(request, 'polls/exame_search.html', {"form": form, "message": "Exame nao encontrado"})
-
-class MarcarExameCreate(CreateView):
-    model = Exame
-    success_url = reverse_lazy('exame_list')
-    form_class = ExameMarcar
+        return render(request, 'polls/Exame/exame_search.html', {"form": form, "message": "Exame nao encontrado"})
 
 class GerenciarExame(CreateView):
     model = GerenciarExame
@@ -281,16 +295,19 @@ class GerenciarExame(CreateView):
 ############################ CONSULTA ############################
 class ConsultaList(ListView):
     model = Consulta
+    template_name = 'polls/Consulta/consulta_list.html'
 
 class ConsultaCreate(CreateView):
     model = Consulta
     success_url = reverse_lazy('consulta_list')
     form_class = ConsultaForm
+    template_name = 'polls/Consulta/consulta_form.html'
 
 class ConsultaUpdate(UpdateView):
     model = Consulta
     success_url = reverse_lazy('consulta_list')
     form_class = ConsultaForm
+    template_name = 'polls/Consulta/consulta_form.html'
 
 class ConsultaDelete(DeleteView):
     model = Consulta
