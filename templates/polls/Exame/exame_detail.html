@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exame - {{ object.firstName }}</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Exame - {{ object.firstName }}</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Hospital</th>
+                    <th>Ação</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% if object %}
+
+                    <tr>
+                        <td> {{ exame.nome }} </td>
+                         <td> {{ exame.hospital }} </td>
+
+                        <td>
+                            <a href="{% url "exame_edit" object.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "exame_delete" object.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>
+
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Exame</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        <form action="{% url "exame_list" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Voltar</button>
+        </form>
+    </div>
+</body>
+</html>
+

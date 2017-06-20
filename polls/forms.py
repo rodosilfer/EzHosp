@@ -89,12 +89,12 @@ class ModeloExameForm(ModelForm):
 class ExameBuscarForm(ModelForm):
     class Meta:
         model = Exame
-        fields = ['nome', 'hospital']
+        fields = ['nome','hospital']
 
 class ExameMarcar(ModelForm):
     class Meta:
         model = Exame
-        fields = ['paciente', 'nome', 'hospital']
+        fields = ['paciente', 'nome', 'hospital' ]
 
 class GerenciarExameForm(ModelForm):
     class Meta:

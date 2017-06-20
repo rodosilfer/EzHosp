@@ -274,16 +274,23 @@ class ExameDelete(DeleteView):
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
 
+class ExameView(DetailView):
+    model = Exame
+    template_name = 'polls/Exame/exame_detail.html'
+
 def ExameSearchView(request):
-    form =ExameBuscarForm()
+    form =ExameBuscarForm(request.POST or None)
     try:
         if request.method == 'POST':
+
             nome = request.POST['nome']
-            exm = Exame.objects.filter(Q(nome=nome))  # | Q(income__isnull=True)firstName=fj''')
-            return redirect('/exame/' + exm.id)
+            hosp=request.POST['hospital']
+            exm = Exame.objects.get(Q(nome=nome) & Q(hospital=hosp) )  # | Q(income__isnull=True)firstName=fj''')
+            return redirect('/exame/' + str(exm.id))
 
         return render(request, 'polls/Exame/exame_search.html', {"form": form})
-    except:
+    except Exception as e:
+        print (e)
         return render(request, 'polls/Exame/exame_search.html', {"form": form, "message": "Exame nao encontrado"})
 
 class GerenciarExame(CreateView):

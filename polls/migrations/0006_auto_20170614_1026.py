@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nome', models.CharField(max_length=50)),
                 ('hospital', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Hospital')),
+
             ],
         ),
         migrations.AlterField(
