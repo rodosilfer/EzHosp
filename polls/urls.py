@@ -32,7 +32,7 @@ urlpatterns = [
 	url(r'^diagnostico/new$', views.DiagnosticoCreate.as_view(), name='diagnostico_new'),
 
 	url(r'^modeloexame/edit/(?P<pk>\d+)$$', views.ModeloExameUpdate.as_view(), name='modelo_exame_edit'),
-	url(r'^exame/edit/(?P<pk>\d+)$$', views.ModeloExameUpdate.as_view(), name='exame_edit'),
+	url(r'^exame/edit/(?P<pk>\d+)$$', views.ExameUpdate.as_view(), name='exame_edit'),
 	url(r'^hospital/edit/(?P<pk>\d+)$', views.HospUpdate.as_view(), name='hospital_edit'),
 	url(r'^convenio/edit/(?P<pk>\d+)$', views.ConvenioUpdate.as_view(), name='convenio_edit'),
 	url(r'^patient/edit/(?P<pk>\d+)$', views.PatientUpdate.as_view(), name='patient_edit'),

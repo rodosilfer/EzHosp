@@ -297,6 +297,12 @@ class MarcarExameCreate(CreateView):
     form_class = ExameMarcar
     template_name = 'polls/Exame/exame_marcar.html'
 
+class ExameUpdate(UpdateView):
+    model = Exame
+    success_url = reverse_lazy('exame_list')
+    form_class = ExameMarcar
+    template_name = 'polls/Exame/exame_marcar.html'
+
 class ExameDelete(DeleteView):
     model = Exame
     success_url = reverse_lazy('exame_list')
