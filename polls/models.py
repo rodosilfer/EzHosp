@@ -82,7 +82,7 @@ class ModeloExame(models.Model):
 class Exame(models.Model):
 	nome = models.ForeignKey('ModeloExame', on_delete=models.CASCADE)
 	hospital = models.ForeignKey('Hospital', on_delete=models.CASCADE)
-	#horario = models.DateTimeField()
+	horario = models.DateTimeField()
 	paciente = models.ForeignKey('Patient', on_delete=models.CASCADE)
 	def __str__(self):
 		return self.nome

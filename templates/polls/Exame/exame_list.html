@@ -13,6 +13,7 @@
                 <tr>
                     <th>Nome</th>
                     <th>Hopital</th>
+                    <th>Horario</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <tr>
                         <td> {{ exame.nome }} </td>
                         <td> {{ exame.hospital }} </td>
+                        <td> {{ exame.horario }} </td>
                         <td>
                             <a href="{% url "exame_edit" exame.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
                             <a href="{% url "exame_delete" exame.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
