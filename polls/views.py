@@ -16,6 +16,7 @@ from django.db.models import Q
 from polls.models import *
 from django.shortcuts import render
 from django.contrib.auth import login, logout
+from django.contrib.messages.views import SuccessMessageMixin
 
 #################################### PAGINA INICIAL ###################################
 class Index(TemplateView):
@@ -110,20 +111,23 @@ class PatientList(ListView):
     model = Patient
     template_name = 'polls/Paciente/patient_list.html'
 
-class PatientCreate(CreateView):
+class PatientCreate(SuccessMessageMixin, CreateView):
     model = Patient
+    success_message = 'Paciente criado com sucesso!'
     success_url = reverse_lazy('patient_list')
     form_class = PatientForm
     template_name = 'polls/Paciente/patient_form.html'
 
-class PatientUpdate(UpdateView):
+class PatientUpdate(SuccessMessageMixin, UpdateView):
     model = Patient
+    success_message = 'Paciente editado com sucesso!'
     success_url = reverse_lazy('patient_list')
     form_class = PatientForm
     template_name = 'polls/Paciente/patient_form.html'
 
-class PatientDelete(DeleteView):
+class PatientDelete(SuccessMessageMixin, DeleteView):
     model = Patient
+    success_message = 'Paciente deletado com sucesso!'
     success_url = reverse_lazy('patient_list')
     template_name = 'polls/Paciente/patient_confirm_delete.html'
 
