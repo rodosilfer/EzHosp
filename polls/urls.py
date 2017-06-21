@@ -10,6 +10,7 @@ urlpatterns = [
 	url(r'^logout/$', views.logout_user, name='logout'),
 
 	url(r'^menu/$', views.menu, name="menu"),
+	url(r'^menumedico/$', views.MenuMedico, name="menumedico"),
 
 	url(r'^modeloexame/$', views.ModeloExameList.as_view(), name='modelo_exame_list'),
 	url(r'^exame/$', views.ExameList.as_view(), name='exame_list'),

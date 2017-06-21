@@ -83,7 +83,7 @@ def login(request):
                 elif flag==3:
                     return render(request, 'polls/pConvenio.html', {'convenio': convenio})
                 elif flag==4:
-                    return render(request, 'polls/pMedico.html', {'medico': medico})
+                    return redirect('/menumedico')
                 else:
                     return redirect("polls/login.html")#'/admin/')
             else:
@@ -169,6 +169,9 @@ class ConvenioDelete(DeleteView):
 
 
 ##################################### MEDICO #########################################
+def MenuMedico(request):    
+    return render(request, 'polls/pMedico.html', {})
+
 def medico_up(request, pk):
     medico = Medico.objects.get(id=pk)
     if medico.nota is not None:

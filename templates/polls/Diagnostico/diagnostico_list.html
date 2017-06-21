@@ -38,9 +38,10 @@
             </tbody>
         </table>
 
-        <form action="{% url "diagnostico_new" %}" style="margin-top: 20px">
-            <button class="form-btn center" type="submit">Diagnosticar</button>
-        </form>
+	    <div class="center">
+                <button type="button" onclick="window.location='{% url "menumedico" %}'" class="form-btn">Voltar</button>
+                <button type="button" onclick="window.location='{% url "diagnostico_new" %}'" class="form-btn">Diagnosticar</button>
+            </div>
     </div>
 </body>
 </html>
