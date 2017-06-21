@@ -345,3 +345,27 @@ class ConsultaDelete(DeleteView):
 
     def get(self, *a, **kw):
         return self.delete(*a, **kw)
+
+############################ DIAGNOSTICO ############################
+class DiagnosticoList(ListView):
+    model = Diagnostico
+    template_name = 'polls/Diagnostico/diagnostico_list.html'
+
+class DiagnosticoCreate(CreateView):
+    model = Diagnostico
+    success_url = reverse_lazy('diagnostico_list')
+    form_class = DiagnosticoForm
+    template_name = 'polls/Diagnostico/diagnostico_form.html'
+
+class DiagnosticoUpdate(UpdateView):
+    model = Diagnostico
+    success_url = reverse_lazy('diagnostico_list')
+    form_class = DiagnosticoForm
+    template_name = 'polls/Diagnostico/diagnostico_form.html'
+
+class DiagnosticoDelete(DeleteView):
+    model = Diagnostico
+    success_url = reverse_lazy('diagnostico_list')
+
+    def get(self, *a, **kw):
+        return self.delete(*a, **kw)

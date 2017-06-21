@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
 	#Autenticacao
-	url(r'^$', views.Index.as_view(), name='index'),
+	url(r'^index/$', views.Index.as_view(), name='index'),
 	url(r'^login/$', views.login, name='login_list'), #login_user .as_view()#
 	url(r'^logout/$', views.logout_user, name='logout'),
 
@@ -18,6 +18,7 @@ urlpatterns = [
 	url(r'^patient/$', views.PatientList.as_view(), name='patient_list'),
 	url(r'^medico/$', views.MedicoList.as_view(), name='medico_list'),
 	url(r'^consulta/$', views.ConsultaList.as_view(), name='consulta_list'),
+	url(r'^diagnostico/$', views.DiagnosticoList.as_view(), name='diagnostico_list'),
 	url(r'^gerenciarexame/$', views.GerenciarExame.as_view(), name='gerenciarexame_list'),
 
 	url(r'^modeloexame/new$', views.ModeloExameCreate.as_view(), name='modelo_exame_new'),
@@ -27,6 +28,7 @@ urlpatterns = [
 	url(r'^patient/new$', views.PatientCreate.as_view(), name='patient_new'),
 	url(r'^medico/new$', views.MedicoCreate.as_view(), name='medico_new'),
 	url(r'^consulta/new$', views.ConsultaCreate.as_view(), name='consulta_new'),
+	url(r'^diagnostico/new$', views.DiagnosticoCreate.as_view(), name='diagnostico_new'),
 
 	url(r'^modeloexame/edit/(?P<pk>\d+)$$', views.ModeloExameUpdate.as_view(), name='modelo_exame_edit'),
 	url(r'^exame/edit/(?P<pk>\d+)$$', views.ModeloExameUpdate.as_view(), name='exame_edit'),
@@ -35,6 +37,7 @@ urlpatterns = [
 	url(r'^patient/edit/(?P<pk>\d+)$', views.PatientUpdate.as_view(), name='patient_edit'),
 	url(r'^medico/edit/(?P<pk>\d+)$', views.MedicoUpdate.as_view(), name='medico_edit'),
 	url(r'^consulta/edit/(?P<pk>\d+)$', views.ConsultaUpdate.as_view(), name='consulta_edit'),
+	url(r'^diagnostico/edit/(?P<pk>\d+)$', views.DiagnosticoUpdate.as_view(), name='diagnostico_edit'),
 
 	url(r'^modeloexame/delete/(?P<pk>\d+)$', views.ModeloExameDelete.as_view(), name='modelo_exame_delete'),
 	url(r'^exame/delete/(?P<pk>\d+)$', views.ExameDelete.as_view(), name='exame_delete'),
@@ -43,6 +46,7 @@ urlpatterns = [
 	url(r'^patient/delete/(?P<pk>\d+)$', views.PatientDelete.as_view(), name='patient_delete'),
 	url(r'^medico/delete/(?P<pk>\d+)$', views.MedicoDelete.as_view(), name = 'medico_delete'),
 	url(r'^consulta/delete/(?P<pk>\d+)$', views.ConsultaDelete.as_view(), name='consulta_delete'),
+	url(r'^diagnostico/delete/(?P<pk>\d+)$', views.DiagnosticoDelete.as_view(), name='diagnostico_delete'),
 
 	url(r'^medico/(?P<pk>\d+)$', views.MedicoView.as_view(), name = 'medico_view'),
 	url(r'^medico/search/', views.MedicoSearchView, name = 'medico_search'),

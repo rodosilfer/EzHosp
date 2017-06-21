@@ -97,3 +97,10 @@ class Consulta(models.Model):
 	paciente = models.ForeignKey('Patient', on_delete=models.CASCADE)
 	medico = models.ForeignKey('Medico', on_delete=models.CASCADE)
 	horario = models.DateTimeField()
+
+class Diagnostico(models.Model):
+	paciente = models.ForeignKey('Patient', on_delete=models.CASCADE)
+	horario = models.DateTimeField()
+	diagnostico = models.CharField(max_length=100)
+
+

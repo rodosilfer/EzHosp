@@ -110,3 +110,13 @@ class ConsultaForm(ModelForm):
                    'medico': Select(choices=Medico.objects.all(), attrs={'class': 'form'}),
                    'horario': TextInput(attrs={'placeholder': 'Horario', 'class': 'form', 'type':'datetime'})
                    }
+
+class DiagnosticoForm(ModelForm):
+    class Meta:
+        model = Diagnostico
+        fields = ['paciente', 'horario', 'diagnostico']
+        widgets = {'paciente': Select(choices=Patient.objects.all(), attrs={'class': 'form'}),
+                   'horario': TextInput(attrs={'placeholder': 'Horario', 'class': 'form', 'type':'datetime'})
+                   }
+
+

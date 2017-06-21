@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Diagnostico</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Diagnosticos</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Horario</th>
+		    <th>Diagnostico</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list %}
+                {% for diagnostico in object_list %}
+                    <tr>
+                        <td> {{ diagnostico.paciente }} </td>
+                        <td> {{ diagnostico.horario }} </td>
+			<td> {{ diagnostico.diagnostico }} </td>
+                        <td>
+                            <a href="{% url "diagnostico_edit" diagnostico.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "diagnostico_delete" diagnostico.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Diagnostico</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+        <form action="{% url "diagnostico_new" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Diagnosticar</button>
+        </form>
+    </div>
+</body>
+</html>
