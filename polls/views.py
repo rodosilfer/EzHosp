@@ -77,7 +77,7 @@ def login(request):
             if loguser is not None: #user is not None:
                 print("loguser: ", loguser)
                 if flag==1:
-                    return render(request, 'polls/pPaciente.html', {'paciente': paciente})
+                    return redirect('/menu')
                 elif flag==2:
                     return render(request, 'polls/pHospital.html', {'hospital': hospital})
                 elif flag==3:
@@ -103,6 +103,9 @@ def logout_user(request):
 
 
 ##################################### PACIENTE #########################################
+def menu(request):    
+    return render(request, 'polls/pPaciente.html', {})
+
 class PatientList(ListView):
     model = Patient
     template_name = 'polls/Paciente/patient_list.html'
@@ -166,6 +169,26 @@ class ConvenioDelete(DeleteView):
 
 
 ##################################### MEDICO #########################################
+def medico_up(request, pk):
+    medico = Medico.objects.get(id=pk)
+    if medico.nota is not None:
+        medico.nota = medico.nota + 1
+    else:
+        medico.nota = 0
+
+    medico.save()
+    return redirect('/medico/' + pk)
+
+def medico_down(request, pk):
+    medico = Medico.objects.get(id=pk)    
+    if medico.nota is not None:
+        medico.nota = medico.nota - 1
+    else:
+        medico.nota = 0
+
+    medico.save()
+    return redirect('/medico/' + pk)    
+
 class MedicoCreate(CreateView):
     model = Medico
     success_url = reverse_lazy('medico_list')

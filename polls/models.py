@@ -40,11 +40,12 @@ class Convenio(models.Model):
 		return "%s" % (self.firstName)
 
 
-class Medico(models.Model):
+class Medico(models.Model):	
 	firstName = models.CharField(max_length=50)
 	cpf = models.CharField(max_length=11)
 	crm = models.CharField(max_length=10)
 	especialidade = models.CharField(max_length=50)
+	nota = models.IntegerField()
 	email = models.CharField(max_length=50)
 	phone = models.CharField(max_length=14)
 	city = models.CharField(max_length=20)
@@ -52,6 +53,7 @@ class Medico(models.Model):
 	street = models.CharField(max_length=20)
 	login = models.CharField(max_length=20)
 	password = models.CharField(max_length=20)
+
 	def __str__(self):
 		return "%s - %s" % (self.firstName, self.especialidade)
 

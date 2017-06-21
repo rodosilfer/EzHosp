@@ -9,6 +9,8 @@ urlpatterns = [
 	url(r'^login/$', views.login, name='login_list'), #login_user .as_view()#
 	url(r'^logout/$', views.logout_user, name='logout'),
 
+	url(r'^menu/$', views.menu, name="menu"),
+
 	url(r'^modeloexame/$', views.ModeloExameList.as_view(), name='modelo_exame_list'),
 	url(r'^exame/$', views.ExameList.as_view(), name='exame_list'),
 	url(r'^hospital/$', views.HospList.as_view(), name='hospital_list'),
@@ -45,7 +47,10 @@ urlpatterns = [
 	url(r'^medico/(?P<pk>\d+)$', views.MedicoView.as_view(), name = 'medico_view'),
 	url(r'^medico/search/', views.MedicoSearchView, name = 'medico_search'),
 	url(r'^convenio/search/', views.ConvenioSearchView, name = 'convenio_search'),
-        url(r'^exame/search/', views.ExameSearchView, name = 'exame_search'),
+    url(r'^exame/search/', views.ExameSearchView, name = 'exame_search'),
 	url(r'^exame/marcar/', views.MarcarExameCreate.as_view(), name = 'exame_marcar'),
-   url(r'^exame/(?P<pk>\d+)$', views.ExameView.as_view(), name = 'exame_view')
+   	url(r'^exame/(?P<pk>\d+)$', views.ExameView.as_view(), name = 'exame_view'),
+
+	url(r'^medico/avaliar/up/(?P<pk>\d+)$', views.medico_up, name = 'medico_up'),
+	url(r'^medico/avaliar/down/(?P<pk>\d+)$', views.medico_down, name = 'medico_down'),
 ]

@@ -2,7 +2,12 @@
 {% block content %}
 <div class="container-big">
   <h2>Menu do Paciente</h2>
-  <a href="{% url 'logout' %}">Logout</a>
-</div>
 
+  <form action="{% url 'medico_search' %}">
+    <button class="form-btn">Procurar médico</button>
+  </form>
+  <form action="{% url 'logout' %}">
+    <button class="form-btn">Logout</button>
+  </form>
+</div>
 {% endblock %}

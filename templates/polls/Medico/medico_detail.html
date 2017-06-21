@@ -14,6 +14,7 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Telefone</th>
+                    <th>Avaliação</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -23,7 +24,10 @@
                         <td> {{ object.firstName }} </td>
                         <td> {{ object.email }} </td>
                         <td> {{ object.phone }} </td>
+                        <td> {{ object.nota }}</td>
                         <td>
+                            <a href="{% url "medico_up" object.id %}"><img src="{% static 'images/up_icon.png' %}"/></a>
+                            <a href="{% url "medico_down" object.id %}"><img src="{% static 'images/down_icon.gif' %}"/></a>
                             <a href="{% url "medico_edit" object.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
                             <a href="{% url "medico_delete" object.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
                         </td>
