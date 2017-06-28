@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Diagnostico</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Diagnosticos</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Horario</th>
+		            <th>Medico</th>
+                    <th>Diagnostico</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list %}
+                {% for diagnostico in object_list %}
+                    <tr>
+                        <td> {{ diagnostico.paciente }} </td>
+                        <td> {{ diagnostico.horario }} </td>
+                        <td> {{ diagnostico.medico }} </td>
+			            <td> {{ diagnostico.diagnostico }} </td>
+                        <td>
+                            {% if isMedico == True %}
+                            <a href="{% url "edit_diagnostico" diagnostico.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "delete_diagnostico" diagnostico.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Diagnostico</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+	    <div class="center">
+            <button type="button" onclick="window.location='{% url "home" %}'" class="form-btn">Voltar</button>
+            {% if isMedico == True %}
+                <button type="button" onclick="window.location='{% url "create_diagnostico" %}'" class="form-btn">Diagnosticar</button>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

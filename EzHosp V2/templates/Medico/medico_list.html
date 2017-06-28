@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Medico</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Medico</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Especialidade</th>
+                    <th>Telefone</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list %}
+                {% for medico in object_list %}
+                    <tr>
+                        <td> {{ medico.user.first_name }} {{ medico.user.last_name }} </td>
+                        <td> {{ medico.user.email }} </td>
+                        <td> {{ medico.especialidade }} </td>
+                        <td> {{ medico.phone }} </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Medico</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="{% url "search_medico" %}">
+            {% for item in form %}
+            {{ item }}
+            {% endfor %}
+            <button class="form-btn center">Buscar</button>
+        </form>
+        <form action="{% url "create_medico" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Adicionar</button>
+        </form>
+    </div>
+</body>
+</html>
+

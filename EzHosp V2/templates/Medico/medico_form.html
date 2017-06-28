@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Novo Paciente</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Paciente</h1>
+        <form action="{{ action }}" method="post">{% csrf_token %}
+            {{ user_form.as_p }}
+            {{ medico_form.as_p }}
+            <div class="center">
+                <button type="button" onclick="window.location='{% url "home" %}'" class="form-btn">Cancelar</button>
+                <button type="submit" class="form-btn">Criar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>  

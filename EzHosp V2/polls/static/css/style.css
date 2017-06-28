@@ -1,0 +1,96 @@
+.center{
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+/* Input Styles */
+
+input, select{
+    width: 100%;
+    padding: 10px;
+    background:#f8f8f8;
+    border:1px solid rgba(0, 0, 0, 0.075);
+    margin-bottom:15px;
+    color:#727272 !important;
+    font-size:13px;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.error-input input{
+    border:1px solid #ff4444 !important;
+}
+
+input:hover{
+    outline-style: none;
+    border:1px solid #66afe9;
+}
+
+input:focus{
+    color: white;
+    outline-style: auto;
+    border:1px solid #66afe9;
+}
+
+.textarea{
+    height: 200px;
+    max-height: 200px;
+    max-width: 100%;
+}
+
+/* Send Button Styles */
+
+.form-btn{
+    width:180px;
+    height: auto;
+    padding:15px;
+    color:#fff;
+    background:#66afe9;
+    border:none;
+    border-radius:3px;
+    outline: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
+    -moz-box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
+    -webkit-box-shadow: 0px 1px 4px rgba(0,0,0, 0.10);
+}
+
+.form-btn:hover{
+    background:#1f85d8;
+    color: white;
+    border:none;
+}
+
+.form-btn:active{
+    opacity: 0.9;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+/* Table */
+.container{
+    width: 50%;
+    margin: auto;
+}
+
+.table-list{
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.table-header{
+    background-color: #66afe9;
+    color: white
+}
+th, td{
+    text-align: left;
+    padding: 10px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}

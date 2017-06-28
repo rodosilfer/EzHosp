@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Consultas</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Consultas</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Medico</th>
+                    <th>Horario</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if object_list %}
+                {% for consulta in object_list %}
+                    <tr>
+                        <td> {{ consulta.paciente }} </td>
+                        <td> {{ consulta.medico }} </td>
+                        <td> {{ consulta.horario }} </td>
+                        <td>
+                            <a href="{% url "edit_consulta" consulta.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            <a href="{% url "delete_consulta" consulta.id %}"><img src="{% static 'images/delete_icon.png' %}"/></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center">Sem Consultas</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if isPaciente == True %}
+        <form action="{% url "create_consulta" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Adicionar</button>
+        </form>
+        {% endif %}
+        <form action="{% url "home" %}" style="margin-top: 20px">
+            <button class="form-btn center" type="submit">Voltar</button>
+        </form>
+    </div>
+</body>
+</html>

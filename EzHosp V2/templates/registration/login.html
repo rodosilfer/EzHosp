@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de  Paciente</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="login-page">
+      <div class="form">
+        <p>Bem vindo ao EzHosp! Efetue seu login</p>
+        {% if erro %}
+          <p class="message error ">Login ou senha incorreto</p>
+        {% endif %}
+
+
+        <h2>Login</h2>
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+          </form>
+      </div>
+    </div>
+</body>
+
+

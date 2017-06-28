@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Busca por Medico</title>
+	{% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Busca por Medico</h1>
+        <table class="table-list">
+            <thead class="table-header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Especialidade</th>
+                    <th>Telefone</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            	{% if object_list %}
+                    {% for medico in object_list %}
+                        <tr>
+                            <td> {{ medico.user.first_name }} {{ medico.user.last_name }} </td>
+                            <td> {{ medico.user.email }} </td>
+                            <td> {{ medico.especialidade }} </td>
+                            <td> {{ medico.phone }} </td>
+                            <td>
+                                <a href="{% url "view_medico" medico.id %}"><img src="{% static 'images/edit_icon.png' %}"/></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" style="text-align: center">Sem Medico</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    <br>
+	<form method="post">
+	    {% csrf_token %}
+	    {% for field in form %}
+		    {{ field.label }}
+            {{ field }}
+	    {% endfor %}
+	    <button class="form-btn center">Buscar</button>
+	</form>
+    <form action="{% url "home" %}" style="margin-top: 20px">
+        <button class="form-btn center" type="submit">Voltar</button>
+    </form>
+    </div>
+</body>
+</html>
+

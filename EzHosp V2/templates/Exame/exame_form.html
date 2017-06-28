@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Marcar Exame</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Marcar Exame</h1>
+        <form action="{{ action }}" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <div class="center">
+                <button type="button" onclick="window.location='{% url "list_exame" %}'" class="form-btn">Cancelar</button>
+                <button type="submit" class="form-btn">Marcar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

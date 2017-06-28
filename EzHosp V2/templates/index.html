@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EzHosp</title>
+    {% load static %}
+	<link rel='stylesheet prefetch' href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bem vindo ao EzHosp</h1>
+	    <form action="{% url 'login' %}">
+            <button type="submit" class="form-btn">Login</button>
+        </form>	
+        <form action="{% url 'create_paciente' %}">
+            <button type="submit" class="form-btn">Cadastrar como paciente</button>
+        </form>
+	    <form action="{% url 'create_convenio' %}">
+            <button type="submit" class="form-btn">Cadastrar como convenio</button>
+        </form>
+	    <form action="{% url 'create_medico' %}">
+            <button type="submit" class="form-btn">Cadastrar como medico</button>
+        </form>
+	    <form action="{% url 'create_hospital' %}">
+            <button type="submit" class="form-btn">Cadastrar como hospital</button>
+        </form>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </div>
+</body>
+</html>
